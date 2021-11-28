@@ -7,8 +7,8 @@ echo $TKG_BUCKET_NAME > tkg_bucketname
 export AWS_ACCESS_KEY_ID=$(cat awsaccess | head -1)
 export AWS_SECRET_ACCESS_KEY=$(cat awsaccess | tail -1)
 
-tanzu cluster kubeconfig get tkg-wc4yong1-aws --admin
-kubectl config use-context $(kubectl config get-contexts -o name | grep tkg-wc4yong1)
+tanzu cluster kubeconfig get $MY_CLUSTER --admin
+kubectl config use-context $(kubectl config get-contexts -o name | grep $MY_CLUSTER)
 
 echo '-------Install K10'
 kubectl create ns kasten-io
@@ -28,9 +28,9 @@ echo '-------Set the default ns to k10'
 kubectl config set-context --current --namespace kasten-io
 
 echo '-------Deploying a postgresql database'
-kubectl create ns postgresql
+kubectl create ns k10-postgresql
 helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install postgres bitnami/postgresql -n postgresql --set persistence.size=1Gi
+helm install postgres bitnami/postgresql -n k10-postgresql --set persistence.size=1Gi
 
 echo '-------Output the Cluster ID'
 clusterid=$(kubectl get namespace default -ojsonpath="{.metadata.uid}{'\n'}")
@@ -87,7 +87,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: Policy
 metadata:
-  name: postgresql-backup
+  name: k10-postgresql-backup
   namespace: kasten-io
 spec:
   comment: ""
@@ -127,7 +127,7 @@ spec:
       - key: k10.kasten.io/appNamespace
         operator: In
         values:
-          - postgresql
+          - k10-postgresql
 EOF
 
 sleep 3
@@ -142,7 +142,7 @@ metadata:
 spec:
   subject:
     kind: Policy
-    name: postgresql-backup
+    name: k10-postgresql-backup
     namespace: kasten-io
 EOF
 
