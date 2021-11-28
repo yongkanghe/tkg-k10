@@ -44,8 +44,8 @@ vim setenv.sh
 # 3 minutes to protect containers on TKGm Cluster
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/pYgJHSfogEE/0.jpg)](https://www.youtube.com/watch?v=pYgJHSfogEE)
 
-# VMware Tanzu TKG Backup and Restore
-https://blog.kasten.io/protect-cloud-native-applications-on-hpe-ezmeral-with-kasten-k10
+# VMware + Kasten Data Management for Kubernetes
+https://blog.kasten.io/vmware-kasten-data-management-for-kubernetes-modern-applications
 
 # Kasten - No. 1 Kubernetes Backup
 https://kasten.io 
