@@ -1,5 +1,5 @@
 #-------Set the environment variables"
-export MY_CLUSTER=tkg4yong1         #Customize your cluster name
+export MY_CLUSTER=tkg-wc4yong1-aws  #Customize your cluster name
 export MY_INSTANCE_TYPE=t3.xlarge   #Customize your favorite machine type t3a.large
 export MY_REGION=us-east-2          #Customize your favorite region
 export MY_ZONE=us-east-2c           #Customize your favorite zone
