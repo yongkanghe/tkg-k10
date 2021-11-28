@@ -16,7 +16,7 @@ git clone https://github.com/yongkanghe/tkg-k10.git
 ````
 cd tkg-k10;./vmwprep.sh
 ````
-4. Optionally, you can customize region, bucketname, object storage profile etc.
+4. Set your clustername and optional customize region, bucketname, object storage profile etc.
 ````
 vim setenv.sh
 ````
