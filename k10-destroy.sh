@@ -8,8 +8,24 @@ export AWS_SECRET_ACCESS_KEY=$(cat awsaccess | tail -1)
 
 helm uninstall k10 -n kasten-io
 kubectl delete ns kasten-io
-helm uninstall postgres -n postgresql
-kubectl delete ns postgresql
+helm uninstall postgres -n k10-postgresql
+kubectl delete ns k10-postgresql
+
+echo '-------Delete the Tanzu WC kubeconfig'
+kubectl config delete-context $(kubectl config get-contexts -o name | grep $MY_CLUSTER)
+
+echo '-------Deleting EBS Volumes'
+aws ec2 describe-volumes --region $MY_REGION --query "Volumes[*].{ID:VolumeId}" --filters Name=tag:kubernetes.io/cluster/$MY_CLUSTER,Values=owned | grep ID | awk '{print $2}' > ebs.list
+aws ec2 describe-volumes --region $MY_REGION --query "Volumes[*].{ID:VolumeId}" --filters Name=tag:kubernetes.io/created-for/pvc/namespace,Values=kasten-io | grep ID | awk '{print $2}' >> ebs.list
+aws ec2 describe-volumes --region $MY_REGION --query "Volumes[*].{ID:VolumeId}" --filters Name=tag:kubernetes.io/created-for/pvc/namespace,Values=k10-postgresql | grep ID | awk '{print $2}' >> ebs.list
+for i in $(sed 's/\"//g' ebs.list);do echo $i;aws ec2 delete-volume --volume-id $i;done
+
+echo '-------Deleting snapshots'
+aws ec2 describe-snapshots --owner self --query "Snapshots[*].{ID:SnapshotId}" --filters Name=tag:kanister.io/clustername,Values=$(cat clusterid) | grep ID | awk '{print $2}' > ebssnap.list
+for i in $(sed 's/\"//g' ebssnap.list);do echo $i;aws ec2 delete-snapshot --snapshot-id $i;done
+
+echo '-------Deleting objects from the bucket'
+aws s3 rb s3://$(cat tkg_bucketname) --force
 
 endtime=$(date +%s)
 duration=$(( $endtime - $starttime ))
