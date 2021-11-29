@@ -12,11 +12,11 @@ This script based automation allows you to protect containers on a running TKGm 
 ````
 git clone https://github.com/yongkanghe/tkg-k10.git
 ````
-3. Complete the preparation tasks first
+3. Complete the preparation tasks first, set the worker cluster name
 ````
 cd tkg-k10;./vmwprep.sh
 ````
-4. Set your clustername and optional customize region, bucketname, object storage profile etc.
+4. Optionally to customize region, bucketname, object storage profile etc.
 ````
 vim setenv.sh
 ````
