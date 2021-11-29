@@ -1,6 +1,6 @@
 I just want to build a VMware Tanzu Kubernetes Grid Cluster to learn the various Data Management capabilities e.g. Backup/Restore, Disaster Recovery and Application Mobility. It is challenging to create a Tanzu cluster if you are not familiar to it. After the cluster is up running, you still need to install Kasten, create a sample DB, create policies etc.. The whole process is not that simple.
 
-![image](https://blog.kasten.io/hs-fs/hubfs/Blog%20Images/VMware-Kasten%20Data%20Management%20for%20Kubernetes%20and%20Modern%20Applications/KastenAndVMware-HolisticIntegration.png?width=893&name=KastenAndVMware-HolisticIntegration.png)
+![image](https://blog.kasten.io/hubfs/Blog%20Images/VMware-Kasten%20Data%20Management%20for%20Kubernetes%20and%20Modern%20Applications/vmware-kasten-01.svg)
 
 This script based automation allows you to protect containers on a running TKGm cluster on AWS Cloud in ~3 minutes. If you don't have a VMware TKGm cluster, you can watch the Youtube video and follow the guide to build a TKGm cluster on AWS Cloud. Once the TKGm cluster is up running, you can proceed to the next steps. 
 
