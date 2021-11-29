@@ -4,3 +4,6 @@ backupname
 exportname
 tkg_bucketname
 tkg_wcluster_name
+clusterid
+ebs.list
+ebssnap.list
