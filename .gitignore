@@ -1,2 +1,6 @@
 awsaccess
 tkg-token
+backupname
+exportname
+tkg_bucketname
+tkg_wcluster_name
