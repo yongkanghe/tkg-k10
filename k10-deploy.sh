@@ -7,8 +7,7 @@ echo $TKG_BUCKET_NAME > tkg_bucketname
 export AWS_ACCESS_KEY_ID=$(cat awsaccess | head -1)
 export AWS_SECRET_ACCESS_KEY=$(cat awsaccess | tail -1)
 
-tanzu cluster kubeconfig get $MY_CLUSTER --admin
-kubectl config use-context $(kubectl config get-contexts -o name | grep $MY_CLUSTER)
+tanzu cluster kubeconfig get $(cat tkg_wcluster_name) --admin
 
 echo '-------Install K10'
 kubectl create ns kasten-io
