@@ -18,6 +18,7 @@ helm install k10 kasten/k10 --namespace=kasten-io \
   --set global.persistence.catalog.size=1Gi \
   --set global.persistence.jobs.size=1Gi \
   --set global.persistence.logging.size=1Gi \
+  --set global.persistence.grafana.size=1Gi \
   --set secrets.awsAccessKeyId="${AWS_ACCESS_KEY_ID}" \
   --set secrets.awsSecretAccessKey="${AWS_SECRET_ACCESS_KEY}" \
   --set auth.tokenAuth.enabled=true \
