@@ -16,11 +16,6 @@ kubectl config delete-context $(kubectl config get-contexts -o name | grep $(cat
 
 echo '-------Deleting EBS Volumes'
 aws ec2 describe-volumes --region $MY_REGION --query "Volumes[*].{ID:VolumeId}" --filters Name=tag:kubernetes.io/cluster/$(cat tkg_wcluster_name),Values=owned | grep ID | awk '{print $2}' > ebs.list
-cat ebs.list
-aws ec2 describe-volumes --region $MY_REGION --query "Volumes[*].{ID:VolumeId}" --filters Name=tag:kubernetes.io/created-for/pvc/namespace,Values=kasten-io | grep ID | awk '{print $2}' >> ebs.list
-cat ebs.list
-aws ec2 describe-volumes --region $MY_REGION --query "Volumes[*].{ID:VolumeId}" --filters Name=tag:kubernetes.io/created-for/pvc/namespace,Values=k10-postgresql | grep ID | awk '{print $2}' >> ebs.list
-cat ebs.list
 for i in $(sed 's/\"//g' ebs.list);do echo $i;aws ec2 delete-volume --volume-id $i;done
 
 echo '-------Deleting snapshots'
