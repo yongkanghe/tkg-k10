@@ -7,6 +7,7 @@ I just want to build a VMware Tanzu Kubernetes Grid Cluster to learn the various
 This script based automation allows you to protect containers on a running TKGm cluster on AWS Cloud in ~3 minutes. If you don't have a VMware TKGm cluster, you can watch the Youtube video and follow the guide to build a TKGm cluster on AWS Cloud. Once the TKGm cluster is up running, you can proceed to the next steps. 
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/WglSH-GZQ1I/0.jpg)](https://www.youtube.com/watch?v=WglSH-GZQ1I)
+#### Subscribe [K8s Data Management](https://www.youtube.com/channel/UCm-sw1b23K-scoVSCDo30YQ?sub_confirmation=1) Youtube Channel
 
 # Here're the prerequisities. 
 1. Log in to the terminal where you can access the TKGm Cluster via Kubectl
