@@ -26,6 +26,9 @@ spec:
         profile:
           name: $MY_OBJECT_STORAGE_PROFILE
           namespace: kasten-io
+        blockModeProfile:
+          name: myaws3-migration
+          namespace: kasten-io          
         receiveString: ""
         exportData:
           enabled: true
