@@ -10,10 +10,13 @@ export AWS_SECRET_ACCESS_KEY=$(cat awsaccess | tail -1)
 tanzu cluster kubeconfig get $(cat tkg_wcluster_name) --admin
 kubectl config use-context $(kubectl config get-contexts -o name| grep $(cat tkg_wcluster_name))
 
+kubectl create -f ebs-csi-vsc.yaml
+
 echo '-------Install K10'
 kubectl create ns kasten-io
+helm repo update
 helm repo add kasten https://charts.kasten.io
-helm install k10 kasten/k10 --namespace=kasten-io \
+helm install k10 kasten/k10 --version=5.0.6 --namespace=kasten-io \
   --set global.persistence.metering.size=1Gi \
   --set prometheus.server.persistentVolume.size=1Gi \
   --set global.persistence.catalog.size=1Gi \
@@ -29,9 +32,9 @@ echo '-------Set the default ns to k10'
 kubectl config set-context --current --namespace kasten-io
 
 echo '-------Deploying a postgresql database'
-kubectl create ns k10-postgresql
+kubectl create ns yong-postgresql
 helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install postgres bitnami/postgresql -n k10-postgresql --set persistence.size=1Gi
+helm install postgres bitnami/postgresql -n yong-postgresql --set persistence.size=1Gi
 
 echo '-------Output the Cluster ID'
 clusterid=$(kubectl get namespace default -ojsonpath="{.metadata.uid}{'\n'}")
@@ -88,7 +91,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: Policy
 metadata:
-  name: k10-postgresql-backup
+  name: yong-postgresql-backup
   namespace: kasten-io
 spec:
   comment: ""
@@ -128,7 +131,7 @@ spec:
       - key: k10.kasten.io/appNamespace
         operator: In
         values:
-          - k10-postgresql
+          - yong-postgresql
 EOF
 
 sleep 3
@@ -143,7 +146,7 @@ metadata:
 spec:
   subject:
     kind: Policy
-    name: k10-postgresql-backup
+    name: yong-postgresql-backup
     namespace: kasten-io
 EOF
 
