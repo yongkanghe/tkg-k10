@@ -8,8 +8,8 @@ export AWS_SECRET_ACCESS_KEY=$(cat awsaccess | tail -1)
 
 helm uninstall k10 -n kasten-io
 kubectl delete ns kasten-io
-helm uninstall postgres -n k10-postgresql
-kubectl delete ns k10-postgresql
+helm uninstall postgres -n yong-postgresql
+kubectl delete ns yong-postgresql
 
 echo '-------Delete the Tanzu WC kubeconfig'
 kubectl config delete-context $(kubectl config get-contexts -o name | grep $(cat tkg_wcluster_name))
