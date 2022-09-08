@@ -7,3 +7,4 @@ tkg_wcluster_name
 clusterid
 ebs.list
 ebssnap.list
+k10primer.yaml
